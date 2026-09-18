@@ -1,7 +1,7 @@
 import { createClient } from '@insforge/sdk';
 
-const baseUrl = import.meta.env.VITE_INSFORGE_BASE_URL || 'https://ewg4gkogo44o8g04c4o8g0cw.43.134.7.185.sslip.io';
-const anonKey = import.meta.env.VITE_INSFORGE_ANON_KEY || 'anon_2a256987936df23f772e73c028f9e0cfbdd1e097f57f5d5e75ffb8d9eaf01cfa';
+const baseUrl = import.meta.env.VITE_INSFORGE_BASE_URL || 'https://q4o0g4sk44ss4gwsc4wocgwc.43.134.7.185.sslip.io';
+const anonKey = import.meta.env.VITE_INSFORGE_ANON_KEY || 'anon_c9b6d8b63601e183e418f038c37bb90e390ea4e24480b9eca089b223010e89ea';
 
 export const insforge = createClient({
   baseUrl,
