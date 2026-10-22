@@ -9,7 +9,30 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="BaliPass" />
     <link rel="manifest" href="/manifest.json" />
-    <title>BaliPass - Booking Aktivitas Wisata Bali (GlobalTix PWA)</title>
+    <title>BaliPass - Booking Aktivitas Wisata Bali (GlobalTix & InsForge PWA)</title>
+    <script>
+      // Self-healing cleanup for legacy Service Worker cache (balipass-cache-v1)
+      (function () {
+        try {
+          if ('caches' in window) {
+            caches.keys().then(function (keys) {
+              keys.forEach(function (key) {
+                if (key === 'balipass-cache-v1' || key === 'balipass-cache-v2') {
+                  caches.delete(key);
+                }
+              });
+            });
+          }
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (regs) {
+              regs.forEach(function (reg) {
+                reg.update();
+              });
+            });
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased selection:bg-emerald-100 selection:text-emerald-900">
     <div id="root"></div>
@@ -17,8 +40,10 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch((err) => {
-            console.log('SW registration error:', err);
+          navigator.serviceWorker.register('/sw.js').then((reg) => {
+            reg.update();
+          }).catch((err) => {
+            console.log('SW registration note:', err);
           });
         });
       }
